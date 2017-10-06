@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Oh no!</title>
+	</head>
+	<body>
+		<center>
+		<h2>
+			{%if bad == "password"%}
+			Your password was bad, try again.
+			{%elif bad == "username"%}
+			Your username was bad, try again.
+			{% else %}
+			Oops, something went wrong. Try again.
+			{% endif %}
+		</h2>
+		<br>	
+		<a href="http://localhost:5000/">Click here to return to login page</a>			
+		</center>
+	</body>
+</html>
