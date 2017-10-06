@@ -7,7 +7,7 @@ PD 7 Softdev
 HW07
 '''
 #Just imports
-from flask import Flask, session, render_template, request, redirect
+from flask import Flask, session, render_template, request, redirect, url_for
 import os
 
 #App instantiation
@@ -29,7 +29,10 @@ def landing():
 	if ("username" in session) and session["username"] != "":
 			print "Theres something in username!"
 			print session["username"]
-			return logged(session["username"])
+			print url_for(logged(session["username"]))
+			print "the above ran!"
+			print url_for(logged())
+			print redirect("http://localhost:5000"+url_for(logged()))
 	
 	#Else, they just give you the login page.
 	else:
