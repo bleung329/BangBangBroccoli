@@ -20,18 +20,15 @@ def landing():
 @app.route("/login")
 def login(message = ""):
 
-        #If user hits a submit type button
-	if "submit" in request.args:
-                #If user chose to logout
-		if request.args["submit"] == "Logout":
-                        #Reset username and redirect to the welcome logging-in page  
+        #If user hits the submit button to logout.
+    if "submit" in request.args and request.args["submit"] == "Logout": 
+        #Reset username and redirect to the welcome logging-in page  
 			session["username"] = ""
 			#print "fired!"
 			return redirect(url_for('login', message = "You logged out."))
                 
         #If user is logged in, redirect to the logged-in page
-	if "username" in session:
-		if session["username"] == "user!":
+	if "username" in session and session["username"] == "user!":
 			return redirect(url_for('logged', username = "user!"))
 
         #Resets username and password 
@@ -47,9 +44,9 @@ def login(message = ""):
 		if username == "user!":
 			if password == "password":
                                 #If all the login credentials are correct, return the logged-in page
-                                return redirect(url_for('logged', username = "user!"))
+                            return redirect(url_for('logged', username = "user!"))
                         else:
-				return redirect(url_for('login', message = "Bad password!"))
+                            return redirect(url_for('login', message = "Bad password!"))
 		else:
 			return redirect(url_for('login', message = "Bad username!"))
 
@@ -72,7 +69,7 @@ def logged(username = ""):
 		return redirect(url_for('login'))
         
 	else:
-		session["username"] = "user!"
+        session["username"] = "user!"
 		return render_template("ushallpass.html", username = username)
 
 if __name__ == "__main__":
