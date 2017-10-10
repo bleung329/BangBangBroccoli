@@ -1,3 +1,11 @@
+'''
+Queenie Xiang
+&
+Brian Leung
+08_login
+PD 7 SoftDev
+
+'''
 from flask import Flask, session, render_template, request, redirect, url_for
 import os
 
