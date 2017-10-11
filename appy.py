@@ -40,15 +40,14 @@ def login(message = ""):
 		username = request.args["user"].lower()
 		password = request.args["passo"]
 
-	if username != "":
-		if username == "user!":
-			if password == "password":
-                                #If all the login credentials are correct, return the logged-in page
-                            return redirect(url_for('logged', username = "user!"))
-                        else:
-                            return redirect(url_for('login', message = "Bad password!"))
-		else:
-			return redirect(url_for('login', message = "Bad username!"))
+	if username != "" and username == "user!":
+		if password == "password":
+        #If all the login credentials are correct, return the logged-in page
+            return redirect(url_for('logged', username = "user!"))
+        else:
+            return redirect(url_for('login', message = "Bad password!"))
+	else:
+		return redirect(url_for('login', message = "Bad username!"))
 
         #Prints a message to the page regarding the login status of the user (bad password, bad username, etc.) 
 	if "message" in request.args:
