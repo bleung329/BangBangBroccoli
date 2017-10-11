@@ -21,35 +21,34 @@ def landing():
 def login(message = ""):
 
         #If user hits the submit button to logout.
-    if "submit" in request.args and request.args["submit"] == "Logout": 
-        #Reset username and redirect to the welcome logging-in page  
-			session["username"] = ""
-			#print "fired!"
-			return redirect(url_for('login', message = "You logged out."))
-                
+    	if "submit" in request.args and request.args["submit"] == "Logout":
+        #Reset username and redirect to the welcome logging-in page
+		session["username"] = ""
+		return redirect(url_for('login', message = "You logged out."))
+
         #If user is logged in, redirect to the logged-in page
 	if "username" in session and session["username"] == "user!":
-			return redirect(url_for('logged', username = "user!"))
+		return redirect(url_for('logged', username = "user!"))
 
-        #Resets username and password 
+        #Resets username and password
 	username = ""
 	password = ""
-
-        #Grabs the username and password inputs from the text boxes in the welcome page 
+        #Grabs the username and password inputs from the text boxes in the welcome page
 	if "user" in request.args and "passo" in request.args:
 		username = request.args["user"].lower()
 		password = request.args["passo"]
 
-	if username != "" and username == "user!":
-		if password == "password":
-        #If all the login credentials are correct, return the logged-in page
-            return redirect(url_for('logged', username = "user!"))
-        else:
-            return redirect(url_for('login', message = "Bad password!"))
-	else:
-		return redirect(url_for('login', message = "Bad username!"))
+	if username != "":
+		if  username == "user!":
+			if password == "password":
+        			#If all the login credentials are correct, return the logged-in page
+				return redirect(url_for('logged', username = "user!"))
+        		else:
+				return redirect(url_for('login', message = "Bad password!"))
+		else:
+			return redirect(url_for('login', message = "Bad username!"))
 
-        #Prints a message to the page regarding the login status of the user (bad password, bad username, etc.) 
+        #Prints a message to the page regarding the login status of the user (bad password, bad username, etc.)
 	if "message" in request.args:
 		print "other message: " +request.args["message"]
 		message = request.args["message"]
@@ -63,14 +62,13 @@ def logged(username = ""):
 
 	if "username" in request.args:
 		username = request.args["username"]
-                
 	if username=="":
 		return redirect(url_for('login'))
-        
 	else:
-        session["username"] = "user!"
+        	session["username"] = "user!"
 		return render_template("ushallpass.html", username = username)
 
 if __name__ == "__main__":
     app.debug = True
     app.run()
+
