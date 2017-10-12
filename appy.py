@@ -41,7 +41,7 @@ def landing():
 	return redirect(url_for('login'))
 
 @app.route("/login")
-def login(message = ""):
+def login():
 
     #If user hits the submit button to logout.
 	if "submit" in request.args and request.args["submit"] == "Logout":
