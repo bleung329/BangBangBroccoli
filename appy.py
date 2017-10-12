@@ -12,6 +12,24 @@ import os
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
+#Where we store users and passwords in PLAINTEXT!!!
+userpass = {"user!":"password"}
+
+#Authenticate function!
+def auth(user,passo,upass):
+	'''
+	stat_code -1 = bad username
+	stat_code 0 = bad password
+	stat_code 1 = good
+	'''
+	stat_code = -1
+	if user in upass:
+		stat_code+=1
+		if passo == upass[user]:
+			stat_code+=1
+	return stat_code
+
+
 #Where you login.
 @app.route("/")
 def landing():
@@ -39,15 +57,13 @@ def login(message = ""):
 		password = request.args["passo"]
 
 	if username != "":
-		if  username == "user!":
-			if password == "password":
-        			#If all the login credentials are correct, return the logged-in page
-				return redirect(url_for('logged', username = "user!"))
-			else:
-				flash("Bad password!")
-		else:
-			flash("Bad username!")
-			
+		if  auth(username,password,userpass)==-1:
+			flash("Bad username!")			
+		if auth(username,password,userpass)==0:
+			flash("Bad password!")
+		if auth(username,password,userpass)==1:
+			return redirect(url_for('logged', username = "user!"))
+
 	return render_template("loginpage.html")
 
 
