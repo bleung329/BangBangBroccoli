@@ -6,7 +6,7 @@ Brian Leung
 PD 7 SoftDev
 
 '''
-from flask import Flask, session, render_template, request, redirect, url_for
+from flask import Flask, session, render_template, request, redirect, url_for, flash
 import os
 
 app = Flask(__name__)
@@ -20,11 +20,11 @@ def landing():
 @app.route("/login")
 def login(message = ""):
 
-        #If user hits the submit button to logout.
-    	if "submit" in request.args and request.args["submit"] == "Logout":
-        #Reset username and redirect to the welcome logging-in page
+    #If user hits the submit button to logout.
+	if "submit" in request.args and request.args["submit"] == "Logout":
+    #Reset username and redirect to the welcome logging-in page
 		session["username"] = ""
-		return redirect(url_for('login', message = "You logged out."))
+		flash("You logged out")
 
         #If user is logged in, redirect to the logged-in page
 	if "username" in session and session["username"] == "user!":
@@ -43,23 +43,17 @@ def login(message = ""):
 			if password == "password":
         			#If all the login credentials are correct, return the logged-in page
 				return redirect(url_for('logged', username = "user!"))
-        		else:
-				return redirect(url_for('login', message = "Bad password!"))
+			else:
+				flash("Bad password!")
 		else:
-			return redirect(url_for('login', message = "Bad username!"))
-
-        #Prints a message to the page regarding the login status of the user (bad password, bad username, etc.)
-	if "message" in request.args:
-		print "other message: " +request.args["message"]
-		message = request.args["message"]
-
-	return render_template("loginpage.html", message = message)
+			flash("Bad username!")
+			
+	return render_template("loginpage.html")
 
 
 @app.route("/logged")
 def logged(username = ""):
 	#print "loud and clear"
-
 	if "username" in request.args:
 		username = request.args["username"]
 	if username=="":

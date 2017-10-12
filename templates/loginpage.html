@@ -6,7 +6,14 @@
 	<body>
 		<center>
 			<h2>Welcome, please login below.</h2> 
-			<b><h4>{{message}}</h4></b>
+				{% set messages = get_flashed_messages() %}
+					{% for item in messages %}
+						<b>
+							<h4>
+							{{item}}
+							</h4>
+						</b>						
+					{% endfor %}
 			<br>
 			<form action = "/login">
 				Username: <input type = "text" name = "user">
@@ -15,6 +22,4 @@
 				<br><br>
 				<input type = "submit" value = "Submit">
 			</form>
-		</center>
- 	</body>
-</html>
+		</center> 	<l>
