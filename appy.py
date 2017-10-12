@@ -16,6 +16,11 @@ app.secret_key = os.urandom(32)
 userpass = {"user!":"password"}
 
 #Authenticate function!
+'''
+user = username
+passo = password
+upass = dictionary where user+passwords are stored
+'''
 def auth(user,passo,upass):
 	'''
 	stat_code -1 = bad username
